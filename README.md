@@ -14,7 +14,8 @@ AI-Chatbot Interview system and Report system
   
   ## Features
 <ul>
-  <li>Connect and communicate to the chatbot server</li>
+  <li>Connection to and communication with the chatbot server</li>
+  <li>Friendly user interface</li>
   <li>Firebase operations</li>
   <ul>
     <li>Download question audio</li>
