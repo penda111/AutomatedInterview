@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">AutomatedInterview</string>
+    <string name="action_about">About</string>
+    <string name="action_credit">Credit</string>
+
+
+    <!-- Strings used for action author-->
+
+    <string name="author">Sam Shum</string>
+    <string name="project_group">Action Now</string>
+
+    <!-- Strings used for action credit -->
+    <string name="credit_one">Freepik Chatbot icons created by Freepik - Flaticon</string>
+    <string name="credit_two">Radio icons created by Freepik - Flaticon</string>
+    <string name="credit_three">Mute icons created by Freepik - Flaticon</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+
+    <string name="previous">Previous</string>
+
+    <string name="guide_msg_1">Press the [Start Interview] button when you are ready</string>
+    <string name="guide_msg_2">Press [READ ME] button for instruction </string>
+    <string name="start">Start Interview</string>
+
+    <!-- Strings used for instruction -->
+    <string name="initial_instruction">Wait for connection</string>
+    <string name="listen_instruction">Please Listen to the Chatbot</string>
+    <string name="answer_instruction">Please Answer to the Chatbot</string>
+    <string name="processing_instruction">The Chatbot is processing your speech, Please Wait...</string>
+</resources>
