@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <style>
+* {
+  box-sizing: border-box;
+}
+
+#input {
+  background-repeat: no-repeat;
+  width: 40%;
+  font-size: 16px;
+  padding: 12px 5px 12px 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#reportTable {
+  border-collapse: collapse;
+  width: 20%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#reportTable th, #reportTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#reportTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#reportTable tr.header {
+  background-color: #AFAFAF;
+}
+</style>
+    </head>
+	
+   <body>
+    <h1 style="padding-left:2%">Report Review</h1>
+
+
+      <p>Search: <input style="width:200px" id="searchInput" onkeyup="filter()"type="text" placeholder="Search By Interviewee Name" /></p>
+      <table id="reportTable">
+      	<tr class="header">
+			<th>Interviewee  Name</th>
+      	</tr>
+         <% for (var doc of docs) { %>
+         <tr>
+         	<td><a href="/report/<%=doc._id %>"><%= doc.interviewee.personalInfo["name"]%></a></td>
+         </tr>
+         <% } %>
+         
+      </table>
+		<script>
+		function filter() {
+
+		  var input, filter, table, tr, td, i, txtValue;
+		  input = document.getElementById("searchInput");
+		  filter = input.value.toLowerCase();
+
+		  table = document.getElementById("reportTable");
+		  tr = table.getElementsByTagName("tr");
+
+		  for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+			  txtValue = td.textContent || td.innerText;
+			  if (txtValue.toLowerCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+			  } else {
+				tr[i].style.display = "none";
+			  }
+			}       
+		  }
+		}
+      </script>
+   </body>
+   
+</html>

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    
+    
+<style>
+    .QA{
+        background-color:#f1f1f1;
+        padding:18px;
+       
+        
+    }
+    
+	.node {
+		cursor: pointer;
+	}
+
+	.node circle {
+	  fill: #fff;
+	  stroke: steelblue;
+	  stroke-width: 3px;
+	}
+
+	.node text {
+	  font: 12px sans-serif;
+	}
+
+	.link {
+	  fill: none;
+	  stroke: #ccc;
+	  stroke-width: 2px;
+	}
+    </style>
+    
+</head>
+    
+<style>
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+</style>
+    
+    <style type="text/css">
+            * {
+    
+    
+                margin: 0;
+                padding: 0;
+            }
+
+            .img-wrapper {
+    
+    
+                width: 520px;
+                height: 520px;
+                background-size: contain;
+                overflow: hidden;
+                margin: 50px auto;
+                background-color: green;
+            }
+            .img-wrapper img{
+    
+    
+                width: 533px;
+                height: 300px;
+            }
+
+            .img-wrapper p {
+    
+    
+                text-align: center;
+                height: 20px;
+                line-height: 20px;
+                font-size: 16px;
+                margin-bottom: 10px;
+                margin-top: 8px;
+            }
+
+            .img-wrapper button {
+    
+    
+                margin: 12px 93px;
+                font-size: 18px;
+            }
+			.ans_highlight{
+				color:red;
+			}
+			.question_bold{
+				font-weight: bold;
+			}
+        </style>
+    
+        <script type="text/javascript">
+            window.onload = function () {
+    
+    
+                let prev = document.getElementById("prev");
+                let next = document.getElementById("next");
+                let img = document.getElementById("img1");
+                //建立一個數組儲存照片的路徑
+            
+               
+                
+                
+                let imgArr = [];
+                <% for (var i of docs[0].photoURLs){  %>
+                   imgArr.push("<%= i %>");
+                <% } %>
+                              
+                              
+                              
+                let index = 0;
+               
+                prev.onclick = function () {
+                console.log("test,");
+    
+                    index--;
+                    prev.style.backgroundColor="#ff4c31";
+                    if (index < 0) {
+                        index = imgArr.length - 1;
+                    }
+                    console.log(imgArr[1]);
+                    img.src = imgArr[1];
+                    
+                };
+
+                next.onclick = function () {
+    
+    
+                    index++;
+                    next.style.backgroundColor="#ff4c31";
+                    if (index > imgArr.length - 1) {
+                        index = 0;
+                    }
+                    img.src = imgArr[index];
+                    
+                };
+
+            };
+        </script>
+
+    
+    
+    
+
+    
+<body>
+    <div>
+        <div class="header">
+            <tr>
+                <h1 style="padding-left:2%">Report Review</h1>
+            </tr>
+        
+        </div>
+     
+        
+        
+        
+       <table width="100%" border="0">
+           <tr><!--selfinfo-->
+               <td colspan="2" style="background-color:#3f51b5;color:white;padding-left: 10%;padding-right: 10%">
+                   <h1 ><%= docs[0].interviewee.personalInfo.name %></h1>
+                   <p> phone:    <%= docs[0].interviewee.personalInfo.phone %></p>
+                   <p> email:    <%= docs[0].interviewee.personalInfo.email %></p>
+                   <p> address:  <%= docs[0].interviewee.personalInfo.address %></p>
+                   
+                    
+               </td>
+           </tr>
+
+           
+               <td style="background-color:#b7b8b9;width:15%;vertical-align: top;"><!--mainleft-->
+                   <p id="info"></p>
+                   <img id="img1" src=" <%= docs[0].photoURLs %>" alt="Pulpit rock" width="300px" height="350"><br>
+                   <button id="prev">Previous</button>
+                   <button id="next">Next</button><br><br>
+                   
+                   
+                   <b>Education:</b><br>
+                   Title: <%= docs[0].interviewee.education.edu_list[0].title %><br>
+                   Education_level: <%= docs[0].interviewee.education.edu_list[0].level %><br>
+                   Organization: <%= docs[0].interviewee.education.edu_list[0].organization %><br>
+                   Grade:<%= docs[0].interviewee.education.edu_list[0].grade %><br>
+                   CompletionDate:<%= docs[0].interviewee.education.edu_list[0].endDate %> <br>
+                   
+               </td>
+               
+               <td style="background-color:#eeeeee;height:200px;width:400px;vertical-align:top;padding:10px "><!--mainmid-->
+                
+                   
+                   <!--Q&A-->
+                   <div style="background-color: white; ">
+                       <section style="padding:2%;">
+                           <u style="font-size: 21px;">Q&A</u>
+                       </section >
+                       
+                       <div class="Q&A.set" style="padding-left: 20px; padding-right: 20px">
+                           
+                           
+                           
+                           
+                          
+                           
+                         
+                  
+                            <!-- Greeting Q&A -->
+                            <button type="button" class="collapsible">Greeting</button>    
+                            <div class="content" > 
+                               <% for (var g of docs[0].questions_dict.greeting){  %>
+                                    <p>Question LV: <%= g.Questionlv %> </p>
+                                    <p><span class="question_bold">Question</span>: &emsp;<%= g.question_text %></p>
+                                 <% if (g.question_ans_summary) {%>
+                                        <p>Sum.Ans.: &emsp;<%= g.question_ans_summary %></p>
+                                        <br>
+                                 <% } %>
+                                        <p><span class="ans_highlight">Ans.</span> <% var ans_Arr = g.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<g.keywords.length;i++){
+                                                                        if(w == g.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p> 
+
+                                        <br>
+                                    <% for (var f of g.follow_up_qs){ %>
+                                        <% if (f.question_text) {  %>
+                                            <p> Question LV: <%= f.Questionlv %> </p>
+                                            <p><span class="question_bold">2nd Question</span>:  &emsp;<%= f.question_text %> </p>
+                                            <% if (f.question_ans_summary) {  %>
+                                                 <p>Sum.Ans.:  &emsp;<%= f.question_ans_summary %> </p>
+                                            <% } %>
+                                             <p><span class="ans_highlight">Ans.</span>:  &emsp; &emsp;<% var ans_Arr = f.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<f.keywords.length;i++){
+                                                                        if(w == f.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p>
+                                            <br>
+                                                <% for (var e of f.follow_up_qs){ %>
+                                                    <% if (e.question_text) {  %>
+                                                        <p>Question LV: <%= e.Questionlv %> </p>
+                                                        <p><span class="question_bold">3rd Question</span>: &emsp; <%= e.question_text %> </p>
+                                                    <% if (e.question_ans_summary) {  %>
+                                                        <p>Sum.Ans.: &emsp; <%= e.question_ans_summary %> </p>
+                                                    <% } %>
+                                
+                                                    <p><span class="ans_highlight">Ans.</span>: &emsp; <% var ans_Arr = e.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<e.keywords.length;i++){
+                                                                        if(w == e.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p>
+                                                    <br>
+                                                    <% } %>
+                                                <% } %>     
+                                        <% } %>        
+                                    <% } %>  <hr>    
+                                <% }%><br>
+                            </div><br>
+                            
+                            
+                             <!-- work_exp Q&A -->
+                            <button type="button" class="collapsible">Work Experience</button>    
+                            <div class="content" > 
+                               <% for (var g of docs[0].questions_dict.work_exp){  %>
+                                    <p>Question LV: <%= g.Questionlv %> </p>
+                                    <p><span class="question_bold">Question</span>: &emsp;<%= g.question_text %></p>
+                                 <% if (g.question_ans_summary) {%>
+                                        <p>Sum.Ans.: &emsp;<%= g.question_ans_summary %></p>
+                                        <br>
+                                 <% } %>
+                                        <p><span class="ans_highlight">Ans.</span>: <% var ans_Arr = g.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<g.keywords.length;i++){
+                                                                        if(w == g.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p> 
+
+                                        <br>
+                                    <% for (var f of g.follow_up_qs){ %>
+                                        <% if (f.question_text) {  %>
+                                            <p> Question LV: <%= f.Questionlv %> </p>
+                                            <p><span class="question_bold">2nd Question</span>:  &emsp;<%= f.question_text %> </p>
+                                            <% if (f.question_ans_summary) {  %>
+                                                 <p>Sum.Ans.:  &emsp;<%= f.question_ans_summary %> </p>
+                                            <% } %>
+                                             <p><span class="ans_highlight">Ans.</span>:  &emsp; &emsp; <% var ans_Arr = f.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<f.keywords.length;i++){
+                                                                        if(w == f.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p>
+                                            <br>
+                                                <% for (var e of f.follow_up_qs){ %>
+                                                    <% if (e.question_text) {  %>
+                                                        <p>Question LV: <%= e.Questionlv %> </p>
+                                                        <p><span class="question_bold">3rd Question</span>: &emsp; <%= e.question_text %> </p>
+                                                    <% if (e.question_ans_summary) {  %>
+                                                        <p>Sum.Ans.: &emsp; <%= e.question_ans_summary %> </p>
+                                                    <% } %>
+                                
+                                                    <p><span class="ans_highlight">Ans.</span>: &emsp;  <% var ans_Arr = e.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<e.keywords.length;i++){
+                                                                        if(w == e.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p>
+                                                    <br>
+                                                    <% } %>
+                                                <% } %>     
+                                        <% } %>        
+                                    <% } %>  <hr>    
+                                <% }%><br>
+                            </div><br>
+                            
+                           
+                           
+                            
+                             <!-- tech_skill Q&A -->
+                            <button type="button" class="collapsible">Technical Skills</button>    
+                            <div class="content" > 
+                               <% for (var g of docs[0].questions_dict.tech_skill){  %>
+                                    <p>Question LV: <%= g.Questionlv %> </p>
+                                    <p><span class="question_bold">Question</span>: &emsp;<%= g.question_text %></p>
+                                 <% if (g.question_ans_summary) {%>
+                                        <p>Sum.Ans.: &emsp;<%= g.question_ans_summary %></p>
+                                        <br>
+                                 <% } %>
+                                        <p><span class="ans_highlight">Ans.</span>: <% var ans_Arr = g.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<g.keywords.length;i++){
+                                                                        if(w == g.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p> 
+
+                                        <br>
+                                    <% for (var f of g.follow_up_qs){ %>
+                                        <% if (f.question_text) {  %>
+                                            <p> Question LV: <%= f.Questionlv %> </p>
+                                            <p><span class="question_bold">2nd Question</span>:  &emsp;<%= f.question_text %> </p>
+                                            <% if (f.question_ans_summary) {  %>
+                                                 <p>Sum.Ans.:  &emsp;<%= f.question_ans_summary %> </p>
+                                            <% } %>
+                                             <p><span class="ans_highlight">Ans.</span>:  &emsp; &emsp;<% var ans_Arr = f.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<f.keywords.length;i++){
+                                                                        if(w == f.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p>
+                                            <br>
+                                                <% for (var e of f.follow_up_qs){ %>
+                                                    <% if (e.question_text) {  %>
+                                                        <p>Question LV: <%= e.Questionlv %> </p>
+                                                        <p><span class="question_bold">3rd Question</span>: &emsp; <%= e.question_text %> </p>
+                                                    <% if (e.question_ans_summary) {  %>
+                                                        <p>Sum.Ans.: &emsp; <%= e.question_ans_summary %> </p>
+                                                    <% } %>
+                                
+                                                    <p><span class="ans_highlight">Ans.</span>: &emsp; <% var ans_Arr = e.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<e.keywords.length;i++){
+                                                                        if(w == e.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p>
+                                                    <br>
+                                                    <% } %>
+                                                <% } %>     
+                                        <% } %>        
+                                    <% } %><hr>      
+                                <% }%><br>
+                            </div><br>
+                              
+                            
+                             
+                             <!-- Ending Q&A -->
+                            <button type="button" class="collapsible">Ending</button>    
+                            <div class="content" > 
+                               <% for (var g of docs[0].questions_dict.bye){  %>
+                                    <p>Question LV: <%= g.Questionlv %> </p>
+                                    <p><span class="question_bold">Question</span>: &emsp;<%= g.question_text %></p>
+                                 <% if (g.question_ans_summary) {%>
+                                        <p>Sum.Ans.: &emsp;<%= g.question_ans_summary %></p>
+                                        <br>
+                                 <% } %>
+                                        <p><span class="ans_highlight">Ans.</span>: <% var ans_Arr = g.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<g.keywords.length;i++){
+                                                                        if(w == g.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p> 
+
+                                        <br>
+                                    <% for (var f of g.follow_up_qs){ %>
+                                        <% if (f.question_text) {  %>
+                                            <p> Question LV: <%= f.Questionlv %> </p>
+                                            <p><span class="question_bold">2nd Question</span>:  &emsp;<%= f.question_text %> </p>
+                                            <% if (f.question_ans_summary) {  %>
+                                                 <p>Sum.Ans.:  &emsp;<%= f.question_ans_summary %> </p>
+                                            <% } %>
+                                             <p><span class="ans_highlight">Ans.</span>:  &emsp; &emsp;<% var ans_Arr = f.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<f.keywords.length;i++){
+                                                                        if(w == f.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p>
+                                            <br>
+                                                <% for (var e of f.follow_up_qs){ %>
+                                                    <% if (e.question_text) {  %>
+                                                        <p>Question LV: <%= e.Questionlv %> </p>
+                                                        <p><span class="question_bold">3rd Question</span>: &emsp; <%= e.question_text %> </p>
+                                                    <% if (e.question_ans_summary) {  %>
+                                                        <p>Sum.Ans.: &emsp; <%= e.question_ans_summary %> </p>
+                                                    <% } %>
+                                
+                                                    <p><span class="ans_highlight">Ans.</span>: &emsp; <% var ans_Arr = e.question_ans.split(' ');
+                                                                for (var a of ans_Arr){
+                                                                    var isKeyword = false;
+                                                                    var w = a.replace(/[^\w\s]/gi, '').trim();
+                                                                    for(var i=0;i<e.keywords.length;i++){
+                                                                        if(w == e.keywords[i]){
+                                                                        %> <mark><%=w%></mark><%=a.replace(w,'')%>&nbsp;<%
+                                                                        isKeyword = true;
+                                                                        break;
+                                                                        }
+                                                                    }
+                                                                    if(!isKeyword){
+                                                                    isKeyword = false;
+                                                                    a = a+' ';
+                                                                    %><%= a%><%
+                                                                    }
+                                                                }%></p>
+                                                    <br>
+                                                    <% } %>
+                                                <% } %>     
+                                        <% } %>        
+                                    <% } %><hr>      
+                                <% }%><br>
+                            </div><br>
+                           
+                           
+                           
+                           
+                           <div style="padding-left: 20px; padding-right: 20px ;  text-align: right;">
+                               <p>Total Response Time : <%= docs[0].total_response_time %> s</p>
+                               <p>Total Duration Time : <%= docs[0].total_duration_time %> s</p><br>
+
+                               
+                           </div>
+                           
+                       </div>
+                       
+                       
+                       
+                   
+                   </div><br>
+                   
+                   
+                    <!--Career history-->
+                   
+                   
+                   <div style="background-color: white; ">
+                       <section style="padding:2%;">
+                           <u style="font-size: 21px;">Career history</u>
+                       </section >
+                       
+                       <% for(var c of docs[0].interviewee.workExp.work_list) { %> 
+                                <div class="coll.set" style="padding: 20px">
+                                    <button type="button" class="collapsible"><%= c.organization %></button>
+                                    <div class="content" >
+                                        <p>Job_title: "Web Developer"</p>
+                                        <p>Organization: <%= c.organization %></p>
+                                        <p>StartDate: <%= c.startDate %></p>
+                                        <p>EndDate": <%= c.endDate %></p>
+                                        <p>Responsibility:<br> 
+                                        <% for (var r of c.title){%>   
+                                            <%= r %>.<br>
+                                            
+                                        <% } %>   
+                                            
+                                    </div>
+                                </div>
+                       <%}%>
+                                 
+                      
+                   </div><br>
+                           
+                   
+                   
+               
+               
+               </td>    
+
+          
+        </table>
+    
+        
+        
+    </div>
+    
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    
+<script>
+var treeData = [
+    {
+      "name": "Skills",
+      "parent": "null",
+      "children": [
+          {
+              "name": "Soft_Skills",
+              "parent": "null",
+              "children":[
+                      <% for (var g of docs[0].interviewee.softskills.softskills){%>
+                  {
+                        "name": "<%= g %>",
+                        "parent": "Soft_Skills",
+                  },
+                  <% }%>
+              ]
+          },
+          {
+              "name": "Language_Skills",
+              "parent": "Soft_Skills",
+               "children": [
+                   <% for (var g of docs[0].interviewee.langskills.langskills){%>
+                  {
+                        "name": "<%= g.title %>",
+                        "parent": "Language_Skills",
+                  },
+                  <% }%>
+               ]
+          },
+          {
+              "name": "Programming_Language",
+              "parent": "Soft_Skills",
+              "children":[
+                    <% for (var g of docs[0].interviewee.progLangs.progLangs){%>
+                  {
+                      "name": "<%= g %>",
+                      "parent": "Programming_Language",
+                  },
+                  <% }%>
+              ]
+          },
+          {
+              "name": "Certification",
+              "parent": "Skills",
+              "children":[
+                <% for (var g of docs[0].interviewee.cert.cert_list){%>
+                  {
+                      "name": "<%= g %>",
+                      "parent": "Certification",
+                  },
+                 <% }%>
+              ]
+
+          }
+
+
+
+      ]
+
+  }
+];
+
+
+
+// ************** Generate the tree diagram	 *****************
+var margin = {top: 20, right: 120, bottom: 20, left: 120},
+	width = 960 - margin.right - margin.left,
+	height = 600 - margin.top - margin.bottom;
+	
+var i = 0,
+	duration = 750,
+	root;
+
+var tree = d3.layout.tree()
+	.size([height, width]);
+
+var diagonal = d3.svg.diagonal()
+	.projection(function(d) { return [d.y, d.x]; });
+
+var svg = d3.select("body").append("svg")
+	.attr("width", width + margin.right + margin.left)
+	.attr("height", height + margin.top + margin.bottom)
+  .append("g")
+	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+root = treeData[0];
+root.x0 = height / 2;
+root.y0 = 0;
+  
+update(root);
+
+d3.select(self.frameElement).style("height", "500px");
+
+function update(source) {
+
+  // Compute the new tree layout.
+  var nodes = tree.nodes(root).reverse(),
+	  links = tree.links(nodes);
+
+  // Normalize for fixed-depth.
+  nodes.forEach(function(d) { d.y = d.depth * 180; });
+
+  // Update the nodes…
+  var node = svg.selectAll("g.node")
+	  .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+  // Enter any new nodes at the parent's previous position.
+  var nodeEnter = node.enter().append("g")
+	  .attr("class", "node")
+	  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+	  .on("click", click);
+
+  nodeEnter.append("circle")
+	  .attr("r", 1e-6)
+	  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+  nodeEnter.append("text")
+	  .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
+	  .attr("dy", ".35em")
+	  .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+	  .text(function(d) { return d.name; })
+	  .style("fill-opacity", 1e-6);
+
+  // Transition nodes to their new position.
+  var nodeUpdate = node.transition()
+	  .duration(duration)
+	  .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+  nodeUpdate.select("circle")
+	  .attr("r", 10)
+	  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+  nodeUpdate.select("text")
+	  .style("fill-opacity", 1);
+
+  // Transition exiting nodes to the parent's new position.
+  var nodeExit = node.exit().transition()
+	  .duration(duration)
+	  .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+	  .remove();
+
+  nodeExit.select("circle")
+	  .attr("r", 1e-6);
+
+  nodeExit.select("text")
+	  .style("fill-opacity", 1e-6);
+
+  // Update the links…
+  var link = svg.selectAll("path.link")
+	  .data(links, function(d) { return d.target.id; });
+
+  // Enter any new links at the parent's previous position.
+  link.enter().insert("path", "g")
+	  .attr("class", "link")
+	  .attr("d", function(d) {
+		var o = {x: source.x0, y: source.y0};
+		return diagonal({source: o, target: o});
+	  });
+
+  // Transition links to their new position.
+  link.transition()
+	  .duration(duration)
+	  .attr("d", diagonal);
+
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+	  .duration(duration)
+	  .attr("d", function(d) {
+		var o = {x: source.x, y: source.y};
+		return diagonal({source: o, target: o});
+	  })
+	  .remove();
+
+  // Stash the old positions for transition.
+  nodes.forEach(function(d) {
+	d.x0 = d.x;
+	d.y0 = d.y;
+  });
+}
+
+// Toggle children on click.
+function click(d) {
+  if (d.children) {
+	d._children = d.children;
+	d.children = null;
+  } else {
+	d.children = d._children;
+	d._children = null;
+  }
+  update(d);
+}
+
+</script>    
+
+   
+</body>
+</html>
