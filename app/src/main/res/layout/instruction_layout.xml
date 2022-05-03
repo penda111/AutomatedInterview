@@ -62,7 +62,7 @@
         android:layout_margin="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/green_2"
+        android:theme="@style/GreenButton"
         android:text="Start Record"
         android:enabled="true"
         android:textAllCaps="false"/>
@@ -70,15 +70,15 @@
         android:layout_margin="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/green_2"
         android:text="Stop Record"
+        android:theme="@style/GreenButton"
         android:enabled="false"
         android:textAllCaps="false"/>
     <Button
         android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/green"
+        android:theme="@style/GreenButton"
         android:text="Upload"
         android:enabled="false"
         android:textAllCaps="false"/>
