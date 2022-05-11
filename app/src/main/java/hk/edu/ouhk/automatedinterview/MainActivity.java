@@ -46,26 +46,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         checkPermissions();
         Log.i("MainActivity", Environment.getExternalStorageDirectory().getAbsolutePath());
-        File myDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "AutomatedInterview");
+/*        File myDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "AutomatedInterview");
         File audioDir = new File(myDir, "audio");
-        File photoDir = new File(myDir, "photo");
-        if(!myDir.exists()) {
-            myDir.mkdir();
-            if(!audioDir.exists()){
-                audioDir.mkdir();
-            }
-            if(!photoDir.exists()){
-                photoDir.mkdir();
-            }
-        } else {
-            if(!audioDir.exists()){
-                audioDir.mkdir();
-            }
-            if(!photoDir.exists()){
-                photoDir.mkdir();
-            }
-        }
+        File photoDir = new File(myDir, "photo");*/
 
+        createDirecotry();
 /*        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +59,29 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
-
+    }
+    protected void createDirecotry(){
+        File myDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "AutomatedInterview");
+        File audioDir = new File(myDir, "audio");
+        File photoDir = new File(myDir, "photo");
+        if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            if (!myDir.exists()) {
+                myDir.mkdir();
+                if (!audioDir.exists()) {
+                    audioDir.mkdir();
+                }
+                if (!photoDir.exists()) {
+                    photoDir.mkdir();
+                }
+            } else {
+                if (!audioDir.exists()) {
+                    audioDir.mkdir();
+                }
+                if (!photoDir.exists()) {
+                    photoDir.mkdir();
+                }
+            }
+        }
     }
     protected void checkPermissions() {
         final List<String> missingPermissions = new ArrayList<String>();
@@ -113,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 // all permissions were granted
+                createDirecotry();
                 break;
         }
     }
