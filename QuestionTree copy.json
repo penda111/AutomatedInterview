@@ -1,0 +1,34 @@
+{
+
+    "SQL":
+            {
+            "easy": ["What is the Primary key in sql?"],
+            "difficult": ["What are constraints in sql?"]
+            }
+
+,
+
+    "Python":
+        {
+            "easy":["What is the difference between list and tuple?"],
+            "difficult":["What are the common built-in data types in Python?"]
+        }
+
+,
+
+
+"Machine Learning":
+    {
+        "easy":["What is the difference between supervised learning and unsupervised learning?"],
+        "difficult":["Can you talk about what is linear regression?"]
+    }
+
+,
+
+"Data Scraping":
+    {
+        "easy":["What is data scraping?"],
+        "difficult":["How do you perform data scraping?"]
+    }
+
+}

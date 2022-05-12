@@ -1,0 +1,35 @@
+{
+
+    "O O P":
+            {
+            "easy": ["What is overloading in OOP?", "What are the four features of OOP?"],
+            "difficult": ["Can your give one example in designing OOP?", "Can you override a method with final keyword?"]
+
+            }
+
+,
+
+    "multithreading":
+        {
+            "easy":["Can you explain deadlock?", "What is the difference between thread and processor?"],
+            "difficult":["What is the difference between vector and array list?", "What is the usage of thread pool?"]
+        }
+
+,
+
+
+"Spring Framework":
+    {
+        "easy":["What are the components of MVC pattern in Spring Framework?", "What is Get Mapping annotation?"],
+        "difficult":["What is the role of dispatcher servlet in Spring Framework MVC?", "What is form-backing object?"]
+    }
+
+,
+
+"nodejs":
+    {
+        "easy":["Can you explain MVC?", "What is middleware in Express?"],
+        "difficult":["Why do we use session in web application?", "What is RESTful web services?"]
+    }
+
+}
