@@ -2,7 +2,7 @@
 AI-Chatbot Interview system and Report system
 
 ## Introduction
-<p>This mobile app is an client of the chatbot.<br>
+<p>This mobile app is a client of the chatbot.<br>
   User (Interviewee) will be interviewed (talk) to the chatbot by using this app.</p>
   
 ## Main Functions
